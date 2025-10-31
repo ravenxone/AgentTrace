@@ -1,2 +1,2 @@
 # destructor
-A saner way to code with AI
+A different way to code with AI
