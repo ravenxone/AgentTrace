@@ -1,6 +1,6 @@
 # AgentTrace Roadmap
 
-## Phase 0 - Bootstrap MVP (Current)
+## Phase 0 - Bootstrap MVP (Implemented)
 
 - TUI-first operator experience.
 - Source adapters for `Claude Code`, `Codex CLI`, `Entra ID`, and `WSO2`.
@@ -14,9 +14,11 @@
 - Ingestion reliability (runs without data loss on local replay).
 - Replayability from local evidence files + index.
 
-## Phase 1 - Correlation Baseline
+## Phase 1 - Correlation Baseline (Implemented)
 
 - Deterministic joins across identity and runtime evidence.
+- Join keys: `agent_id`, `identity_id`, `session_id`, and `correlation_id` when present.
+- Bounded timestamp windows with deterministic tie-breaking.
 - Timeline reconstruction quality checks on synthetic scenarios.
 - Structured session report export with confidence indicators.
 

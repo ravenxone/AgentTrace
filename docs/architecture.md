@@ -11,7 +11,7 @@ AgentTrace is a post-incident forensic reconstruction layer. It is not a runtime
 3. Raw payloads are written to append-only evidence files.
 4. Normalized envelopes are written to append-only NDJSON.
 5. Provenance and query indexes are maintained in SQLite.
-6. Session timelines are replayed and exported as artifacts.
+6. Session timelines are replayed, correlated, and exported as artifacts.
 
 ## Core Design Decisions
 
@@ -43,14 +43,14 @@ Every normalized event carries:
 - Some Entra paths may require beta APIs in later integration phases.
 - Workload identities do not map to human MFA assumptions.
 
-## Future Correlation Model (Phase 1+)
+## Correlation Model (Phase 1 Baseline)
 
-Deterministic joins will combine:
+Deterministic joins combine:
 
 - `agent_id`
 - `identity_id`
 - `session_id`
 - `correlation_id` when available
-- bounded timestamp windows with clock-skew tolerance
+- bounded timestamp windows with clock-skew tolerance and deterministic tie-breaks
 
 Evidence tiers (Observed, Reconstructed, Unknown) are added in later phases.

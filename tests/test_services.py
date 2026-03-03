@@ -40,3 +40,5 @@ def test_export_session_artifact_contains_events(tmp_path: Path) -> None:
     assert payload["session_id"] == "session://s2"
     assert payload["event_count"] == 2
     assert payload["sources"] == ["codex_cli"]
+    assert payload["correlation"]["window_seconds"] == 300
+    assert payload["correlation"]["summary"]["runtime_actions"] == 2

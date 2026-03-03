@@ -1,8 +1,8 @@
 # Source Connectors
 
-## MVP Adapter Strategy
+## Adapter Strategy
 
-Phase 0 prioritizes stable ingestion contracts. Connectors currently ingest NDJSON feeds and normalize them into AgentTrace envelopes.
+Phase 0/1 prioritizes stable ingestion contracts. Connectors ingest NDJSON feeds and normalize them into AgentTrace envelopes.
 
 Supported source names:
 
@@ -24,6 +24,18 @@ Each source line may include:
 - `payload`
 
 Missing fields are backfilled with safe defaults in MVP.
+
+## Entra ID Normalization Notes
+
+The `entra_id` connector also accepts Graph-style fields such as:
+
+- `createdDateTime` / `activityDateTime`
+- `correlationId`
+- `servicePrincipalId`
+- `activityDisplayName`
+- `resultType`
+
+These are mapped into AgentTrace provenance fields and deterministic correlation hints (`correlation_id` in payload).
 
 ## Integration Path (Phase 1+)
 

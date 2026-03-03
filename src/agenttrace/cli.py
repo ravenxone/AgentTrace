@@ -8,7 +8,11 @@ from rich.table import Table
 
 from agenttrace.config import write_default_config
 from agenttrace.runtime import build_runtime
-from agenttrace.services import build_session_timeline, export_session_artifact
+from agenttrace.services import (
+    build_correlated_timeline,
+    build_session_timeline,
+    export_session_artifact,
+)
 from agenttrace.tui import run_tui
 
 app = typer.Typer(help="AgentTrace forensic ingestion and replay toolkit.")
@@ -94,11 +98,75 @@ def replay(
 
 
 @app.command()
+def correlate(
+    session_id: str = typer.Argument(..., help="Session identifier to correlate."),
+    window_seconds: int = typer.Option(
+        300,
+        "--window-seconds",
+        min=1,
+        help="Maximum timestamp window for deterministic joins.",
+    ),
+    config: Path = typer.Option(Path("agenttrace.toml"), help="Path to config file."),
+) -> None:
+    """Run deterministic correlation for one session."""
+    runtime = build_runtime(config_path=config)
+    correlation_view = build_correlated_timeline(
+        index=runtime.index,
+        session_id=session_id,
+        window_seconds=window_seconds,
+    )
+    events = correlation_view["events"]
+    if not events:
+        console.print(f"No events found for session [yellow]{session_id}[/yellow].")
+        raise typer.Exit(code=1)
+
+    summary = correlation_view["summary"]
+    summary_table = Table(title=f"Correlation Summary - {session_id}")
+    summary_table.add_column("Metric")
+    summary_table.add_column("Value", justify="right")
+    for key in (
+        "runtime_actions",
+        "matched_actions",
+        "unmatched_actions",
+        "high_confidence",
+        "medium_confidence",
+        "low_confidence",
+        "unknown_confidence",
+    ):
+        summary_table.add_row(key, str(summary[key]))
+    console.print(summary_table)
+
+    table = Table(title=f"Correlated Timeline - {session_id}")
+    table.add_column("Runtime Event")
+    table.add_column("Matched Identity Event")
+    table.add_column("Confidence")
+    table.add_column("Reasons")
+    for event in events:
+        if event.get("role") != "runtime_action":
+            continue
+        correlation = event.get("correlation") or {}
+        matched = correlation.get("matched_event") or {}
+        table.add_row(
+            str(event.get("source_event_id")),
+            str(matched.get("source_event_id") or "-"),
+            str(correlation.get("confidence") or "unknown"),
+            ",".join(correlation.get("reason_codes") or []),
+        )
+    console.print(table)
+
+
+@app.command()
 def export(
     session_id: str = typer.Argument(..., help="Session identifier to export."),
     output: Path = typer.Option(
         Path("exports/session_artifact.json"),
         help="Path for JSON artifact output.",
+    ),
+    window_seconds: int = typer.Option(
+        300,
+        "--window-seconds",
+        min=1,
+        help="Maximum timestamp window for deterministic joins.",
     ),
     config: Path = typer.Option(Path("agenttrace.toml"), help="Path to config file."),
 ) -> None:
@@ -108,6 +176,7 @@ def export(
         index=runtime.index,
         session_id=session_id,
         output_path=output,
+        window_seconds=window_seconds,
     )
     console.print(f"Wrote artifact: [green]{path}[/green]")
 
