@@ -1,6 +1,6 @@
 # AgentTrace
 
-AgentTrace is an open-source agent identity & forensics platform that unifies AI agent execution data with enterprise identity systems (e.g. Microsoft Entra ID, WSO2, code/CLI agents) into a single evidence layer for audit and post-incident reconstruction.
+AgentTrace is an open-source agent identity & forensics library that unifies AI agent execution data with enterprise identity systems (e.g. Microsoft Entra ID, WSO2, code/CLI agents) into a single evidence layer for audit and post-incident reconstruction.
 
 ## Problem
 
