@@ -1,0 +1,2 @@
+{"source_event_id":"en-1","event_time":"2026-03-01T09:59:45Z","event_type":"signin.success","agent_id":"agent://assistant-alpha","identity_id":"spn://entra/app-001","session_id":"session://incident-1042","payload":{"ip":"192.0.2.10","conditional_access":"passed"}}
+{"source_event_id":"en-2","event_time":"2026-03-01T10:02:30Z","event_type":"role.assignment","agent_id":"agent://assistant-alpha","identity_id":"spn://entra/app-001","session_id":"session://incident-1042","payload":{"role":"KeyVaultSecretsUser","action":"added"}}

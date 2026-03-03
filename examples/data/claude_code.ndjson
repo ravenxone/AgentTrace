@@ -1,0 +1,2 @@
+{"source_event_id":"cc-1","event_time":"2026-03-01T10:00:00Z","event_type":"prompt.execute","agent_id":"agent://assistant-alpha","identity_id":"spn://entra/app-001","session_id":"session://incident-1042","payload":{"prompt_id":"p-001","command":"list subscriptions"}}
+{"source_event_id":"cc-2","event_time":"2026-03-01T10:03:00Z","event_type":"tool.call","agent_id":"agent://assistant-alpha","identity_id":"spn://entra/app-001","session_id":"session://incident-1042","payload":{"tool":"az","target":"keyvault"}}

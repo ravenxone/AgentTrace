@@ -1,0 +1,2 @@
+{"source_event_id":"cx-1","event_time":"2026-03-01T10:01:00Z","event_type":"command.run","agent_id":"agent://assistant-alpha","identity_id":"spn://entra/app-001","session_id":"session://incident-1042","payload":{"command":"terraform plan"}}
+{"source_event_id":"cx-2","event_time":"2026-03-01T10:04:00Z","event_type":"file.modify","agent_id":"agent://assistant-alpha","identity_id":"spn://entra/app-001","session_id":"session://incident-1042","payload":{"path":"infra/main.tf"}}

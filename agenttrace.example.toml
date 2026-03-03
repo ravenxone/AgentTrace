@@ -1,0 +1,22 @@
+# AgentTrace example configuration
+config_version = 1
+data_dir = ".agenttrace/data"
+sqlite_path = ".agenttrace/index.db"
+backend_mode = "local"
+mapping_version = "v1"
+
+[sources.claude_code]
+enabled = true
+path = "examples/data/claude_code.ndjson"
+
+[sources.codex_cli]
+enabled = true
+path = "examples/data/codex_cli.ndjson"
+
+[sources.entra_id]
+enabled = true
+path = "examples/data/entra_id.ndjson"
+
+[sources.wso2]
+enabled = true
+path = "examples/data/wso2.ndjson"
