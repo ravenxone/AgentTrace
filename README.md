@@ -2,32 +2,13 @@
 
 AgentTrace is an open-source, read-only forensic correlation project for IAM investigations.
 
-It is built to answer:
+## Problem
 
-**"What did this agent do, which identity did it use, and was that identity state appropriate at that moment?"**
-
-The current implementation focuses on **Phase 0 (ingestion-first MVP)**: source adapters, normalization, append-only evidence storage, SQLite indexing, replay, and export.
-
-## Why AgentTrace
-
-Enterprise teams typically have agent/runtime execution telemetry and identity evidence in separate systems. During incidents, this fragmentation slows triage and weakens confidence in identity recovery decisions.
+Enterprise teams can usually see:
+Agent/runtime execution telemetry in one system.Identity authentication and authorization evidence in separate IdP systems. During an incident, they rarely have a single, defensible timeline that links both. This slows investigation and weakens confidence in identity recovery decisions. AgentTrace is built to solve this problem. 
 
 AgentTrace creates a local, deterministic evidence trail that can be replayed and expanded into deeper correlation phases.
 
-## MVP Capabilities (Phase 0)
-
-- TUI-first workflow for ingestion and investigation.
-- Source adapters for:
-  - `Claude Code`
-  - `Codex CLI`
-  - `Microsoft Entra ID` (adapter feed for MVP)
-  - `WSO2` (adapter feed for MVP)
-- Unified normalized event envelope with provenance metadata.
-- Hybrid local storage:
-  - append-only NDJSON raw evidence
-  - append-only NDJSON normalized events
-  - SQLite index for fast lookup and replay
-- Session timeline replay and JSON artifact export.
 
 ## Quick Start
 
@@ -67,28 +48,6 @@ Each normalized event includes:
 - `mapping_version`
 
 Raw source payloads are preserved immutably in append-only evidence files.
-
-## Project Layout
-
-```text
-src/agenttrace/
-  cli.py
-  tui.py
-  config.py
-  connectors/
-  storage/
-  pipeline.py
-  services.py
-examples/data/
-docs/
-scripts/bootstrap.sh
-```
-
-## Phased Roadmap
-
-- **Phase 0 (now):** ingestion reliability, local replay, provenance-safe evidence retention.
-- **Phase 1:** deterministic timeline reconstruction and baseline correlation validation.
-- **Phase 2:** evidence tiering, expanded heuristics, optional web UI, and optional ClickHouse backend mode.
 
 ## Explicit Non-Goals
 
