@@ -1,6 +1,6 @@
 # AgentTrace
 
-AgentTrace is an open-source, read-only forensic correlation project for IAM investigations.
+AgentTrace is an open-source agent identity & forensics platform that unifies AI agent execution data with enterprise identity systems (e.g. Microsoft Entra ID, WSO2, code/CLI agents) into a single evidence layer for audit and post-incident reconstruction.
 
 ## Problem
 
